@@ -1,0 +1,47 @@
+class Game {
+  field Array menuStr;
+  field boolean quit;
+  field int key;
+  field gamecontroller game;
+
+  constructor Game new() {
+    let menuStr = Array.new(4);
+    let menuStr[0] = "STACK GAME";
+    let menuStr[1] = "----------";
+    let menuStr[2] = "Stack blocks as high as possible by pressing SPACE";
+    let menuStr[3] = "Press 'p' to start the game and 'q' to quit";
+    return this;
+  }
+
+  method void run() {
+    while (~(key = Constants.KEY_Q())) {
+      do Screen.clearScreen();
+      do Output.moveCursor(8, 26);
+      do Output.printString(menuStr[0]);
+      do Output.moveCursor(10, 26);
+      do Output.printString(menuStr[1]);
+      do Output.moveCursor(13, 7);
+      do Output.printString(menuStr[2]);
+      do Output.moveCursor(15, 10);
+      do Output.printString(menuStr[3]);
+
+      while (key = 0) {
+        let key = Keyboard.keyPressed();
+      }
+
+      if (key = Constants.KEY_P()) {
+        do Screen.clearScreen();
+        let game = gamecontroller.new();
+        do game.run();
+        do game.dispose();
+        let key = 0;
+      }
+    }
+    return;
+  }
+
+  method void dispose() {
+    do Memory.deAlloc(this);
+    return;
+  }
+}
